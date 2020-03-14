@@ -1,0 +1,57 @@
+.titleset {
+  font-family: 'Limelight', cursive;
+  font-size: 30pt;
+}
+
+.nav-link{
+  font-family: 'Glegoo', serif;
+  font-size: 12pt;
+}
+
+.centerstage{
+  margin-top:50px;
+}
+
+.posttitle{
+  font-family: 'Racing Sans One', cursive;
+  margin-bottom:20px;
+}
+
+.navbar{
+  background-color: #D4B483;
+}
+.btn{
+  font-family: 'Ubuntu Mono', monospace;
+  weight:15pt;
+  height:20pt;
+  background-color: #48a9a6;
+  padding-top: 0px;
+  border:None;
+}
+
+.btn:hover{
+  background-color: #314496;
+}
+
+.listtitle{
+  font-family: 'Source Serif Pro', serif;
+  color:black;
+}
+
+.listtitle:hover{
+  color:gray;
+}
+
+.date{
+  color:gray;
+  font-size:8pt;
+}
+
+.postcontent{
+  margin-top:50px;
+  margin-bottom:50px;
+}
+
+hr{
+  border:0.5px dotted gray;
+}
