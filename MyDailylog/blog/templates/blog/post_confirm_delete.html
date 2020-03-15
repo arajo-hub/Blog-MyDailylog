@@ -1,9 +1,17 @@
 {% extends "blog/home.html" %}
 {% block content %}
+
 <div class="centerstage">
+  {# delete 설명 영역 #}
   <form action="" method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
-    <input class='btn btn-danger' type="submit" value="Confirm" />
+    <h3 class="confirm">Are you sure you want to delete<h3>
+    <h3 class="confirm">"{{ object }}"?</h3>
+
+    {# delete버튼 영역#}
+    <div class="container">
+      <input class='btn btn-primary' type="submit" value="Confirm">
+    </div>
   </form>
-  </div>
+</div>
+
 {% endblock %}

@@ -1,51 +1,58 @@
 {% extends 'blog/home.html' %}
-
 {% block content %}
 
 <div class="centerstage">
-        <h2 class='posttitle'>{{ post.title }}</h2>
+  {# post title #}
+  <h2 class='posttitle'>{{ post.title }}</h2>
 
-        {% if post.published_date %}
-            <div class="date postdate">
-                {{ post.published_date }}
-            </div>
+  {# published date #}
+  {% if post.published_date %} {# published_date값이 있다면 나타낸다.(default는 false) #}
+    <div class="date postdate">
+      {{ post.published_date }}
+    </div>
+  {% else %} {# published_date가 false라면(아직 publish되지 않았다면) publish해줘야 한다. #}
+    <a class="btn btn-primary" href="{% url 'post_publish' pk=post.pk %}">Publish</a> {# url name이 post_publish인 url을 실행한다. #}
+  {% endif %}
 
-        {% else %}
-            <a class="btn btn-primary" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
-        {% endif %}
+  {# post 내용 #}
+  <p>{{ post.text|safe|linebreaksbr }}</p> {# template filter인 safe는 tag escape를 막아준다. linebreaksbr는 줄바꿈태그이다. #}
+  {# tag escape : HTML태그 안에 <>가 오면 태그의 시작으로 생각해서 에러가 난다. <>가 필요한 문자를 표현하기 위해서 쓰이는 것이 HTML엔티티인데, 이렇게 문자를 변환하는 과정을 tag escape라고 한다. #}
 
-      <p class='postcontent'>{{ post.text|safe|linebreaksbr }}</p>
+  {% if user.is_authenticated %} {# 유저가 로그인하면 Edit과 Remove버튼을 보여준다. #}
+      <a class="btn btn-primary" href="{% url 'post_edit' pk=post.pk %}">Edit</a>
+      <a class="btn btn-primary" href="{% url 'post_remove' pk=post.pk %}">Remove</a>
+  {% endif %}
 
+<hr> {# comment영역과의 구분선 #}
 
-      {% if user.is_authenticated %}
-          <a class="btn btn-primary" href="{% url 'post_edit' pk=post.pk %}">Edit</a>
-          <a class="btn btn-primary" href="{% url 'post_remove' pk=post.pk %}">Remove</a>
-      {% endif %}
-
-
-
-  <hr>
+  {# comment영역 중 Add comment버튼 #}
   <a class="btn btn-primary" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+
+  {# comment영역 중 내용 #}
   <div class="container">
+    {% for comment in post.comments.all %}
 
+    <br> {# comment들이 구분되어 보이도록 줄을 바꿔준다. #}
 
-  {% for comment in post.comments.all %}
-  <br>
-      {% if user.is_authenticated or comment.approved_comment %}
+    {% if user.is_authenticated or comment.approved_comment %} {# 유저가 로그인한 상태이거나 comment가 approve상태이면 comment를 보인다. #}
+    <p class="commentstart"><strong>{{ comment.author }}</strong></p>
+      <div class="container">
+        {{ comment.text|safe|linebreaks }}
+      </div>
+      <div class="date postdate">
+        {{ comment.created_date }}
+      </div>
 
-              {{ comment.created_date }}
-              {% if not comment.approved_comment %}
-                  <a class="btn btn-primary" href="{% url 'comment_remove' pk=comment.pk %}"><span class="fa fa-remove"></span></a>
-                  <a class="btn btn-primary" href="{% url 'comment_approve' pk=comment.pk %}"><span class="fa fa-check"></span></a>
-              {% endif %}
-
-          <p>{{ comment.text|safe|linebreaks }}</p>
-          <p>Posted by: <strong>{{ comment.author }}</strong></p>
-
+      {% if not comment.approved_comment %} {# comment가 approve되지 않았으면 Remove, Approve버튼을 보여준다.#}
+          <a class="btn btn-primary" href="{% url 'comment_remove' pk=comment.pk %}">Remove</a>
+          <a class="btn btn-primary" href="{% url 'comment_approve' pk=comment.pk %}">Approve</a>
       {% endif %}
-  {% empty %}
-      <p>No comments posted.</p>
-  {% endfor %}
+    {% endif %}
+    {% empty %} {# comment가 없다면 No comments posted.를 나타낸다. #}
+    <p class="nocomment">No comments posted.</p>
+    {% endfor %}
+  </div>
 </div>
-</div>
+{# comment영역 끝#}
+
 {% endblock %}

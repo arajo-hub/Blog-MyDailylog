@@ -1,15 +1,18 @@
-{% extends 'blog/home.html' %}
+{% extends 'blog/home.html' %} {# home.html을 상속해서 사용한다.(똑같은 형태가 되도록 한다.) #}
 
 {% block content %}
-<div class="centerstage">
-    <h2 class=posttitle>New post</h2>
 
-    <form method="POST" class="post-form">
+{# Post를 작성하는 form #}
+
+<div class="centerstage">
+  <h2 class=posttitle>New post</h2>
+  <form method="POST" class="post-form">
     {% csrf_token %}
     {{form.as_p}}
     <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+  </form>
 
-    <script>var editor = new MediumEditor('.editable');</script>
-  </div>
+  <script>var editor = new MediumEditor('.editable');</script> {# medium-editor 적용 #}
+</div>
+
 {% endblock %}

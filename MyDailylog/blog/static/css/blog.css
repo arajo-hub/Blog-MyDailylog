@@ -12,7 +12,7 @@
   margin-top:50px;
 }
 
-.posttitle{
+.posttitle, .logintitle, .newcomment, .aboutme{
   font-family: 'Racing Sans One', cursive;
   margin-bottom:20px;
 }
@@ -20,12 +20,14 @@
 .navbar{
   background-color: #D4B483;
 }
+
 .btn{
   font-family: 'Ubuntu Mono', monospace;
   weight:15pt;
   height:20pt;
   background-color: #48a9a6;
   padding-top: 0px;
+  margin-bottom:10px;
   border:None;
 }
 
@@ -33,7 +35,7 @@
   background-color: #314496;
 }
 
-.listtitle{
+.listtitle, .loginsub, .nocomment, .aboutmetext{
   font-family: 'Source Serif Pro', serif;
   color:black;
 }
@@ -42,14 +44,16 @@
   color:gray;
 }
 
-.date{
-  color:gray;
-  font-size:8pt;
+.confirm{
+  font-family: 'Source Serif Pro', serif;
+  color:black;
+  margin-bottom:20px;
 }
 
-.postcontent{
-  margin-top:50px;
-  margin-bottom:50px;
+.postdate{
+  color:gray;
+  font-size:8pt;
+  margin-bottom:15px;
 }
 
 hr{

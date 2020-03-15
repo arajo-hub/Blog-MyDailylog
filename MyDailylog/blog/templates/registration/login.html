@@ -1,21 +1,25 @@
 {% extends 'blog/home.html' %}
 {% block content %}
+
 <div class="centerstage">
-<div class="jumbotron">
+  {# login 설명 영역 #}
+  <div class="jumbotron">
+    <h2 class="logintitle">Login</h2>
+    <p class="loginsub">ONLY superuser can login this blog.</p>
+    <p class="loginsub">Superuser ID : ara</p>
+    <p class="loginsub">Superuser PW : ara</p>
+    {% if form.errors %}
+      <p class="loginsub">Your username and password didn't match. Please try again!</p>
+    {% endif %}
 
-  <h2>Please Login: </h2>
-  <h3>(Must be SuperUser, please check admin for issues.)</h3>
-  {% if form.errors %}
-      <p>Your username and password didn't match.Please try again!</p>
-  {% endif %}
-
-  <form method="POST" action="{% url 'login' %}">
-  {% csrf_token %}
+    {# login영역 #}
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
       {{form.as_p}}
+    <input type="submit" class='btn btn-primary' value="Login"/>
+    <input type="hidden" name="next" value="{{ next }}"/>
+    </form>
+  </div>
+</div>
 
-      <input type="submit" class='btn btn-primary' value="Login" />
-      <input type="hidden" name="next" value="{{ next }}" />
-  </form>
-</div>
-</div>
 {% endblock %}

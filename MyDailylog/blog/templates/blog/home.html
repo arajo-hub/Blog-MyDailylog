@@ -3,50 +3,63 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>My Daily Log</title>
+
+    {# bootstrap #}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    {# font #}
     <link href="https://fonts.googleapis.com/css?family=Glegoo|Limelight|Racing+Sans+One|Source+Serif+Pro|Ubuntu+Mono&display=swap" rel="stylesheet">
+
+    {# css #}
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+    {# medium-editor#}
+    <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
   </head>
+
   <body>
+    {# navigation bar #}
     <nav class="navbar navbar-expand navbar-light">
       <div class="container">
         <a class="titleset navbar-brand" href="{% url 'post_list' %}">My Daily Log</a>
-        <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li class="navbar-link"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-          <li class="navbar-link"><a class="nav-link" href="https://github.com/arajo-hub">My Github</a></li>
-          <li class="navbar-link"><a class="nav-link" href="https://blog.naver.com/0424ing">Another Blog</a></li>
-        </ul>
-        </div>
-        {% if user.is_authenticated %}
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="navbar-link"><a class="nav-link" href="{% url 'post_new' %}">New Post</a></li>
-            <li class="navbar-link"><a class="nav-link" href="{% url 'post_draft_list' %}">Drafts</a></li>
-            <li class="navbar-link"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
-            <li class="navbar-item"><a class="nav-link active">Welcome! {{ user.username }}</a></li>
-          </ul>
-        {% else %}
-        <ul class="nav navbar-nav">
-          <li class="navbar-link"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-          <span class="fa fa-user" aria-hidden="true"></span></a>
-          </ul>
-        {% endif %}
-        </div>
+          {# 기본메뉴 About, My Github, Another Blog #}
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="navbar-link"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+              <li class="navbar-link"><a class="nav-link" href="https://github.com/arajo-hub">My Github</a></li>
+              <li class="navbar-link"><a class="nav-link" href="https://blog.naver.com/0424ing">Another Blog</a></li>
+            </ul>
+          </div>
+          {% if user.is_authenticated %} {# user가 로그인하면(=authenticated하면) 아래의 메뉴가 추가적으로 나타난다. #}
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="navbar-link"><a class="nav-link" href="{% url 'post_new' %}">New Post</a></li>
+              <li class="navbar-link"><a class="nav-link" href="{% url 'post_draft_list' %}">Drafts</a></li>
+              <li class="navbar-link"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+              <li class="navbar-item"><a class="nav-link active">Welcome! {{ user.username }}</a></li>
+            </ul>
+          {% else %} {# user가 로그인하지 않은 상황이라면 Login메뉴가 나타난다. #}
+            <ul class="nav navbar-nav">
+              <li class="navbar-link"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+            </ul>
+          {% endif %}
         </div>
       </div>
     </nav>
-    <div class="content container">
-              <div class="row">
-                  <div class="col-md-8">
-                    <div class="blog_posts">
-                      {% block content %}
-                      {% endblock %}
+    {# navigation bar 끝 #}
 
-                    </div>
-                  </div>
-              </div>
-          </div>
+    {# 실행영역 #}
+    <div class="content container">
+      <div class="row">
+        <div class="col-md-8">
+          {% block content %} {# 이 부분부터 endblock까지는 home을 상속받는 html파일들이 채워야 한다. #}
+          {% endblock %} {# 상속받는 html파일에도 이와 똑같은 코드이 있다. #}
+        </div>
+      </div>
+    </div>
+    {# 실행영역 끝 #}
+
   </body>
 </html>

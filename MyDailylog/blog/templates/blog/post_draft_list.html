@@ -1,12 +1,16 @@
 {% extends 'blog/home.html' %}
 {% block content %}
+
+{# post_draft_list.html은 아직 publish되지 않은 Post들을 list형태로 보여준다. #}
+
 <div class="centerstage">
-    {% for post in posts %}
-        <div class="post">
-            <p class="date">created: {{ post.created_date|date:'d-m-Y' }}</p>
-            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-            <p>{{ post.text|truncatechars:200 }}</p>
-        </div>
-    {% endfor %}
-  </div>
+  {% for post in posts %}
+    <div class="post">
+      <p class="date">created: {{ post.created_date|date:'d-m-Y' }}</p>
+      <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+      <p>{{ post.text|truncatechars:200 }}</p> {# 게시판 글을 200자 제한으로 보여준다. #}
+    </div>
+  {% endfor %}
+</div>
+
 {% endblock %}

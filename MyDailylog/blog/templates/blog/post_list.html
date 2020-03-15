@@ -1,14 +1,18 @@
 {% extends 'blog/home.html' %}
 {% block content %}
+
+{# post_list.html은 post들을 list형태로 보여준다. #}
+
 <div class="centerstage">
-    {% for post in post_list %}
-        <div class="post">
-            <h2><a class="listtitle" href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-            <div class="date">
-                <p>Published on: {{ post.published_date|date:"D M Y"}}</p>
-            </div>
-            <a class="listtitle" href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approve_comments.count }}</a>
-        </div>
-    {% endfor %}
+  {% for post in post_list %} {# post_list에서 post를 꺼내어 보여준다. #}
+  <div class="post">
+    <h2><a class="listtitle" href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2> {# title을 누르면 post_detail로 이동한다. #}
+    <div class="date postdate">
+      <p>Published on: {{ post.published_date|date:"D M Y"}}</p>
+    </div>
+    <a class="listtitle" href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approve_comments.count }}</a> {# approved_comments의 갯수를 보여준다. #}
+  </div>
+  {% endfor %}
 </div>
+
 {% endblock %}
